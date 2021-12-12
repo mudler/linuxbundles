@@ -14,7 +14,7 @@ Downloadable and runnable, standalone bundles of linux distributions built with 
 
 Download the bundle in the [release](https://github.com/mudler/linuxbundles/releases) page and just run them! (no root permission required).
 
-By default, running the bundle will open up a shell which inherits env var from your system. To spwan up a clean shell, run:
+By default, running the bundle will open up a shell which inherits env var from your system. To spawn up a clean shell, run:
 
 ```
 ./bundle - -c "env -i sh"
