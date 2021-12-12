@@ -1,0 +1,71 @@
+---
+name: 'Build docker images'
+
+on:
+  pull_request:
+  push:
+
+jobs:
+  docker:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include:
+          - tag: "leap-15.3"
+          - tag: "gentoo"
+          - tag: "ubuntu-20.04"
+          - tag: "alpine-3.15"
+          - tag: "archlinux"
+          - tag: "fedora-36"
+          - tag: "centos-8"
+          - tag: "debian-stretch"
+          
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+            go-version: '^1.17'
+      - name: Build and install deps
+        run: |
+           wget https://github.com/mudler/poco/releases/download/v0.1/poco-v0.1-Linux-x86_64.tar.gz
+           tar xvf poco-v0.1-Linux-x86_64.tar.gz
+           sudo cp -rfv poco /usr/bin/
+      - name: Build
+        uses: docker/build-push-action@v2
+        with:
+          builder: ${{ steps.buildx.outputs.name }}
+          context: ./${{ matrix.tag }}
+          file: ./${{ matrix.tag }}/Dockerfile
+          tags: ${{ matrix.tag }}:latest
+      - name: Build bundle
+        env:
+          IMAGE: ${{ matrix.tag }}:latest
+          CGO_ENABLED: 0
+        run: |
+           mkdir build
+           OUTPUT=${{ matrix.tag }}-${GITHUB_SHA::8}-$(date +%m-%d-%Y)-amd64
+           poco bundle \
+            --local \
+            --image $IMAGE \
+            --app-name "${{ matrix.tag }}" \
+            --app-version "${GITHUB_SHA::8}-$(date +%m-%d-%Y)" \
+            --output build/$OUTPUT \
+            --entrypoint /bin/sh --app-store '$HOME/.linuxbundles/${{ matrix.tag }}'
+          
+           echo "Generating checksum"
+           sha256sum build/$OUTPUT > build/${OUTPUT}.sha256
+      - name: Upload results
+        uses: actions/upload-artifact@v2
+        with:
+          name: ${{ matrix.tag }}-amd64
+          path: build
+          if-no-files-found: error
+      - name: "Release"
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: fnkr/github-action-ghr@v1
+        env:
+          GHR_COMPRESS: xz
+          GHR_PATH: build/
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

@@ -1,0 +1,1 @@
+FROM gentoo/stage3
