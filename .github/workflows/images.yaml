@@ -50,6 +50,7 @@ jobs:
             --local \
             --image $IMAGE \
             --app-name "${{ matrix.tag }}" \
+            --app-mounts "/etc/resolv.conf" \
             --app-version "${GITHUB_SHA::8}-$(date +%m-%d-%Y)" \
             --output build/$OUTPUT \
             --entrypoint /bin/sh --app-store '$HOME/.linuxbundles/${{ matrix.tag }}'
