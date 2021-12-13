@@ -20,7 +20,7 @@ jobs:
           - tag: "centos-8"
           - tag: "debian-stretch"
           - tag: "ubuntu-lxde-vnc"
-            args: "--app-mounts /sys --app-mounts /run --app-mounts /tmp"
+            args: "--entrypoint /startup.sh --app-mounts /sys --app-mounts /run --app-mounts /tmp"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -30,8 +30,8 @@ jobs:
             go-version: '^1.17'
       - name: Build and install deps
         run: |
-           wget https://github.com/mudler/poco/releases/download/v0.1/poco-v0.1-Linux-x86_64.tar.gz
-           tar xvf poco-v0.1-Linux-x86_64.tar.gz
+           wget https://github.com/mudler/poco/releases/download/v0.1.1/poco-v0.1.1-Linux-x86_64.tar.gz
+           tar xvf poco-v0.1.1-Linux-x86_64.tar.gz
            sudo cp -rfv poco /usr/bin/
       - name: Build
         uses: docker/build-push-action@v2
@@ -54,7 +54,7 @@ jobs:
             --app-mounts "/etc/resolv.conf" \
             --app-version "${GITHUB_SHA::8}-$(date +%m-%d-%Y)" \
             --output build/$OUTPUT \
-            --entrypoint /bin/sh --app-store '$HOME/.linuxbundles/${{ matrix.tag }}' ${{ matrix.args }}
+            --app-store '$HOME/.linuxbundles/${{ matrix.tag }}' ${{ matrix.args }}
 
            echo "Generating checksum"
            sha256sum build/$OUTPUT > build/${OUTPUT}.sha256
