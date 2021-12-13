@@ -19,7 +19,8 @@ jobs:
           - tag: "fedora-36"
           - tag: "centos-8"
           - tag: "debian-stretch"
-          
+          - tag: "ubuntu-lxde-vnc"
+            args: "--app-mounts /sys --app-mounts /run --app-mounts /tmp"
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -53,8 +54,8 @@ jobs:
             --app-mounts "/etc/resolv.conf" \
             --app-version "${GITHUB_SHA::8}-$(date +%m-%d-%Y)" \
             --output build/$OUTPUT \
-            --entrypoint /bin/sh --app-store '$HOME/.linuxbundles/${{ matrix.tag }}'
-          
+            --entrypoint /bin/sh --app-store '$HOME/.linuxbundles/${{ matrix.tag }}' ${{ matrix.args }}
+
            echo "Generating checksum"
            sha256sum build/$OUTPUT > build/${OUTPUT}.sha256
       - name: Upload results
