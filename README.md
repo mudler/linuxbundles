@@ -11,6 +11,7 @@ Downloadable and runnable, standalone bundles of linux distributions built with 
 - [x] openSUSE Leap 15.3
 - [x] Ubuntu 20.04
 - [x] Centos 8
+- [x] Ubuntu LXDE
 
 Download the bundle in the [release](https://github.com/mudler/linuxbundles/releases) page and just run them! (no root permission required).
 
