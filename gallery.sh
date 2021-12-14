@@ -9,7 +9,7 @@ declare -A distro_logos=(
     ["archlinux"]="https://fatduck.org/images/dl/arch.png"
     ["fedora"]="https://fatduck.org/images/dl/fedora.png"
     ["gentoo"]="https://fatduck.org/images/dl/gentoo.png"
-    ["leap"]="https://fatduck.org/images/dl/opensuse.png"
+    ["opensuse"]="https://fatduck.org/images/dl/opensuse.png"
     ["centos"]="https://fatduck.org/images/dl/centos.png"
 )
 
@@ -18,7 +18,7 @@ declare -A distro_link=(
     ["debian"]="https://www.debian.org/"
     ["alpine"]="https://alpinelinux.org/"
     ["fedora"]="https://getfedora.org/it/"
-    ["leap"]="https://www.opensuse.org/"
+    ["opensuse"]="https://www.opensuse.org/"
     ["centos"]="https://www.centos.org/"
     ["gentoo"]="https://www.gentoo.org"
     ["archlinux"]="https://archlinux.org/"

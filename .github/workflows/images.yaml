@@ -11,7 +11,7 @@ jobs:
     strategy:
       matrix:
         include:
-          - tag: "leap-15.3"
+          - tag: "opensuse-leap-15.3"
           - tag: "gentoo"
           - tag: "ubuntu-20.04"
           - tag: "alpine-3.15"
