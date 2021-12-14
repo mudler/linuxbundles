@@ -1,0 +1,27 @@
+---
+name: 'Build gallery'
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Build bundle
+      run: |
+           bash gallery.sh
+           mkdir build
+           cp -rf gallery.html build/index.html
+    - name: Deploy GH Pages 🚀
+      if: github.ref == 'refs/heads/master' && github.event_name == 'push'
+      uses: JamesIves/github-pages-deploy-action@3.6.2
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        BRANCH: gh-pages # The branch the action should deploy to.
+        FOLDER: build # The folder the action should deploy.
+        CLEAN: true # Automatically remove deleted files from the deploy branch
+        SINGLE_COMMIT: true
