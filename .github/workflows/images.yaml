@@ -46,13 +46,13 @@ jobs:
           CGO_ENABLED: 0
         run: |
            mkdir build
-           OUTPUT=${{ matrix.tag }}-${GITHUB_SHA::8}-$(date +%m-%d-%Y)-amd64
+           OUTPUT=${{ matrix.tag }}-${GITHUB_SHA::8}-$(date +%d-%m-%Y)-amd64
            poco bundle \
             --local \
             --image $IMAGE \
             --app-name "${{ matrix.tag }}" \
             --app-mounts "/etc/resolv.conf" \
-            --app-version "${GITHUB_SHA::8}-$(date +%m-%d-%Y)" \
+            --app-version "${GITHUB_SHA::8}-$(date +%d-%m-%Y)" \
             --output build/$OUTPUT \
             --app-store '$HOME/.linuxbundles/${{ matrix.tag }}' ${{ matrix.args }}
 
