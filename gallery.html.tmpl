@@ -12,6 +12,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/3.1.8/imagesloaded.pkgd.min.js"></script>
+
   <style>
     body {
         font-family: 'Readex Pro', sans-serif;
@@ -74,6 +76,9 @@
       var qsRegex;
       var buttonFilter;
 
+    var $container = $(".iso-container");
+
+    $container.imagesLoaded(function () {
       // init Isotope
       var $grid = $('.iso-container').isotope({
         itemSelector: '.element',
@@ -91,6 +96,8 @@
         qsRegex = new RegExp( $quicksearch.val(), 'gi' );
         $grid.isotope();
       }) );
+    });
+     
 
       // debounce so filtering doesn't happen every millisecond
       function debounce( fn, threshold ) {
