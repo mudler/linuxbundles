@@ -1,5 +1,7 @@
 # linuxbundles
 
+Browse out the release gallery: https://mudler.github.io/linuxbundles/
+
 [Downloadable and runnable](https://github.com/mudler/linuxbundles/releases), standalone bundles of linux distributions built with Github actions:
 
 - [x] Ubuntu 20.04 [src](/ubuntu-20.04)
