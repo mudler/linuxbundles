@@ -25,6 +25,14 @@ By default, running the bundle will open up a shell which inherits env var from 
 ./<bundle name> --entrypoint /bin/sh - -c "env -i sh"
 ```
 
+To uninstall:
+
+```
+./<bundle name> uninstall
+```
+
+or simply remove all data in `$HOME/.linuxbundles`.
+
 Built with [poco](https://github.com/mudler/poco)
 
 # 🐜 Contribution
